@@ -2,8 +2,7 @@
     "id": "/molecules-app/",
     "name": "Molecules Lab",
     "short_name": "Molecules Lab",
-    "description": "संशय की यह कोठरी, मन भटकावे नीत।
-चक्र थमे जो एक पर, समझो ओही मीत॥",
+    "description": "Experimental Features | Molecules Lab",
     "start_url": "./index.html",
     "display": "standalone",
     "orientation": "portrait-primary",
