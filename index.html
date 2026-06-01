@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="en" class="antialiased">
 <head>
@@ -17,7 +18,7 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Matangi:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -42,6 +43,10 @@
             font-family: 'Space Grotesk', sans-serif;
             font-variant-numeric: tabular-nums;
             letter-spacing: -0.04em;
+        }
+        .matangi-font {
+            font-family: 'Matangi', sans-serif;
+            font-optical-sizing: auto;
         }
 
         #cursor {
@@ -216,9 +221,9 @@
         </div>
 
         <div id="yesno-info" class="info-panel glass-panel p-5 md:p-6 interactive invisible-custom">
-            <h3 class="display-font text-xs text-white/40 mb-3 tracking-[0.2em] uppercase">Decision Engine</h3>
-            <p class="text-xs text-white/70 leading-relaxed font-light">
-                Formulate your query. The kinetic rings will calculate the quantum probability and align to reveal your answer.
+            <h3 class="matangi-font text-[15px] md:text-base text-white/70 mb-3 tracking-widest font-bold">भ्रम निवारक</h3>
+            <p class="matangi-font text-[15px] text-white/90 leading-relaxed font-bold">
+                संशय की यह कोठरी, मन भटकावे नीत।<br/>चक्र थमे जो एक पर, समझो ओही मीत॥
             </p>
         </div>
 
@@ -232,7 +237,7 @@
        ========================================= */
     const AudioEngine = (function() {
         let ctx = null;
-        const customCoinSound = new Audio('https://www.image2url.com/r2/default/audio/1780284469302-090a554c-9a5c-4622-8126-4ac945d8d97f.mp3'); 
+        const customCoinSound = new Audio('coin_toss.mp3'); 
         customCoinSound.preload = 'auto';
         
         function init() {
@@ -600,3 +605,6 @@
 </script>
 </body>
 </html>
+
+
+```
