@@ -17,7 +17,8 @@
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Matangi:wght@400;500;600;700;800;900&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500&family=Matangi:wght@400;500;600;700&family=Space+Grotesk:wght@400;500;700&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://api.fontshare.com/v2/css?f[]=clash-display@500,600,700&display=swap" rel="stylesheet">
     
     <style>
         :root {
@@ -46,6 +47,9 @@
             font-family: 'Matangi', sans-serif;
             font-optical-sizing: auto;
         }
+        .dutch-font {
+            font-family: 'Clash Display', sans-serif;
+        }
 
         #cursor {
             position: fixed; top: 0; left: 0;
@@ -70,7 +74,7 @@
             .interactive { cursor: auto !important; }
         }
 
-        /* NEW DUTCH LOADER STYLES */
+        /* DUTCH LOADER STYLES */
         #loader {
             position: fixed; inset: 0; z-index: 100;
             background: var(--bg); display: flex; flex-direction: column;
@@ -90,8 +94,8 @@
         .typo-huge {
             font-size: clamp(8rem, 28vw, 25rem);
             line-height: 0.75;
-            letter-spacing: -0.06em;
-            font-weight: 700;
+            letter-spacing: 0.02em;
+            font-weight: 600;
         }
 
         #loader-typo-stroke {
@@ -102,8 +106,8 @@
         #canvas-container { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
         #ui-layer {
-            position: relative; z-index: 10;
-            height: 100vh; width: 100vw; display: flex;
+            position: fixed; inset: 0; z-index: 10;
+            width: 100%; height: 100%; display: flex;
             flex-direction: column; justify-content: space-between;
             padding: 1.5rem; box-sizing: border-box; pointer-events: none;
         }
@@ -120,7 +124,7 @@
         }
 
         .action-btn {
-            position: absolute; bottom: 8vh; left: 50%; transform: translateX(-50%);
+            position: absolute; bottom: max(2rem, 8vh); left: 50%; transform: translateX(-50%);
             width: 110px; height: 110px; border-radius: 50%; display: flex;
             align-items: center; justify-content: center; font-weight: 700;
             font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase;
@@ -128,7 +132,7 @@
             background: var(--text); color: var(--bg); border: none;
             box-shadow: 0 10px 30px rgba(255,255,255,0.1); z-index: 20;
         }
-        @media (min-width: 768px) { .action-btn { width: 130px; height: 130px; font-size: 1.2rem; bottom: 10vh; } }
+        @media (min-width: 768px) { .action-btn { width: 130px; height: 130px; font-size: 1.2rem; bottom: max(2.5rem, 10vh); } }
         
         .action-btn::before {
             content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.1); border-radius: 50%;
@@ -158,10 +162,10 @@
         }
 
         .info-panel {
-            position: absolute; top: 5.5rem; left: 1.5rem; right: 1.5rem; transition: opacity 0.5s ease;
+            position: absolute; top: 6rem; left: 1.5rem; right: 1.5rem; transition: opacity 0.5s ease;
         }
         @media (min-width: 768px) {
-            .info-panel { top: auto; bottom: 2.5rem; left: 2.5rem; right: auto; width: 320px; }
+            .info-panel { top: 7.5rem; left: 2.5rem; right: auto; bottom: auto; width: 320px; }
         }
 
         .hidden-custom { opacity: 0; pointer-events: none; display: none; }
@@ -172,28 +176,28 @@
 
     <div id="cursor"></div>
 
-    <!-- NEW DUTCH-STYLE LOADER -->
+    <!-- DUTCH-STYLE LOADER -->
     <div id="loader" style="clip-path: inset(0 0 0 0);">
         <div class="flex justify-between items-start w-full relative z-10">
             <div class="mask-wrap">
-                <div class="matangi-font font-bold text-[9px] md:text-[11px] text-white/40 tracking-[0.25em] uppercase loader-reveal">Molecules Lab</div>
+                <div class="dutch-font font-semibold text-[9px] md:text-[11px] text-white/40 tracking-[0.25em] uppercase loader-reveal">Molecules Lab</div>
             </div>
             <div class="mask-wrap">
-                <div class="matangi-font font-bold text-[9px] md:text-[11px] text-white/40 tracking-[0.25em] uppercase loader-reveal">V. 2.0.4</div>
+                <div class="dutch-font font-semibold text-[9px] md:text-[11px] text-white/40 tracking-[0.25em] uppercase loader-reveal">SYS.v.0.9</div>
             </div>
         </div>
 
         <div class="huge-number-container">
-            <div id="loader-typo-stroke" class="number-font typo-huge absolute z-0">000</div>
-            <div id="loader-typo-solid" class="number-font typo-huge text-white absolute z-10" style="clip-path: inset(100% 0 0 0);">000</div>
+            <div id="loader-typo-stroke" class="dutch-font typo-huge absolute z-0">000</div>
+            <div id="loader-typo-solid" class="dutch-font typo-huge text-white absolute z-10" style="clip-path: inset(100% 0 0 0);">000</div>
         </div>
 
         <div class="flex justify-between items-end w-full relative z-10">
             <div class="mask-wrap">
-                <div class="matangi-font font-bold text-[9px] md:text-[11px] text-white/40 tracking-[0.25em] uppercase loader-reveal">Engine Sequence</div>
+                <div class="dutch-font font-semibold text-[9px] md:text-[11px] text-white/40 tracking-[0.25em] uppercase loader-reveal">Quantum Alignment</div>
             </div>
             <div class="mask-wrap">
-                <div id="loader-status" class="matangi-font font-bold text-[9px] md:text-[11px] text-white tracking-[0.25em] uppercase loader-reveal">Initializing</div>
+                <div id="loader-status" class="dutch-font font-semibold text-[9px] md:text-[11px] text-white tracking-[0.25em] uppercase loader-reveal">Initializing</div>
             </div>
         </div>
     </div>
@@ -226,7 +230,9 @@
         </div>
 
         <div id="coin-stats" class="info-panel glass-panel p-5 md:p-6 interactive">
-            <div class="flex justify-between items-center px-4">
+            <button id="reset-stats-btn" class="absolute top-3 md:top-4 right-4 md:right-5 text-[8px] md:text-[9px] uppercase tracking-widest text-white/30 hover:text-white/80 transition-colors duration-300 interactive">Reset</button>
+            
+            <div class="flex justify-between items-center px-4 mt-2">
                 <div class="text-center w-full">
                     <div id="stat-heads-container" class="number-font text-4xl md:text-5xl font-bold leading-none relative h-[1.1em] flex items-center justify-center overflow-hidden" style="perspective: 400px;">
                         <div class="absolute current-val text-white w-full text-center" id="stat-heads">0</div>
@@ -246,8 +252,8 @@
         </div>
 
         <div id="yesno-info" class="info-panel glass-panel p-5 md:p-6 interactive invisible-custom">
-            <h3 class="matangi-font text-[15px] md:text-base text-white/70 mb-3 tracking-widest font-bold">भ्रम निवारक</h3>
-            <p class="matangi-font text-[15px] text-white/90 leading-relaxed font-bold">
+            <h3 class="matangi-font text-[13px] md:text-[14px] text-white/70 mb-3 tracking-widest font-semibold">भ्रम निवारक</h3>
+            <p class="matangi-font text-[13px] text-white/80 leading-relaxed font-medium">
                 संशय की यह कोठरी, मन भटकावे नीत।<br/>चक्र थमे जो एक पर, समझो ओही मीत॥
             </p>
         </div>
@@ -262,7 +268,7 @@
        ========================================= */
     const AudioEngine = (function() {
         let ctx = null;
-        const customCoinSound = new Audio('https://www.image2url.com/r2/default/audio/1780284469302-090a554c-9a5c-4622-8126-4ac945d8d97f.mp3'); 
+        const customCoinSound = new Audio('coin_toss.mp3'); 
         customCoinSound.preload = 'auto';
         
         function init() {
@@ -359,9 +365,20 @@
             }
             save();
         }
+
+        function reset() {
+            stats = { heads: 0, tails: 0 };
+            save();
+            animateNumber('stat-heads', 0);
+            animateNumber('stat-tails', 0);
+        }
         
-        return { init: initRender, record };
+        return { init: initRender, record, reset };
     })();
+
+    document.getElementById('reset-stats-btn').addEventListener('click', () => {
+        StatsManager.reset();
+    });
 
     /* =========================================
        THREE.JS SCENE
@@ -628,36 +645,31 @@
             typoStroke.innerText = displayVal;
             typoSolid.innerText = displayVal;
             
-            // The fill effect: mask rises based on progress
             typoSolid.style.clipPath = `inset(${100 - val}% 0 0 0)`;
 
-            // Update status text dynamically based on milestones
-            if(val > 15 && val < 45) status.innerText = 'Resolving Physics';
-            else if(val >= 45 && val < 80) status.innerText = 'Rendering Scene';
-            else if(val >= 80) status.innerText = 'System Ready';
+            if(val > 15 && val < 45) status.innerText = 'Isolating Variables';
+            else if(val >= 45 && val < 80) status.innerText = 'Calculating Chance';
+            else if(val >= 80) status.innerText = 'Awaiting Input';
         }
 
-        // 2. Stuttered, heavy loading sequence (simulating actual data load, no smooth artificial scroll)
+        // 2. Stuttered, heavy loading sequence
         tl.to(progress, { val: 18, duration: 0.4, ease: "power2.out", onUpdate: updateLoader }, "+=0.2");
-        tl.to(progress, { val: 18, duration: 0.2 }); // pause
+        tl.to(progress, { val: 18, duration: 0.2 }); 
         tl.to(progress, { val: 56, duration: 0.7, ease: "power4.inOut", onUpdate: updateLoader });
-        tl.to(progress, { val: 56, duration: 0.15 }); // pause
+        tl.to(progress, { val: 56, duration: 0.15 }); 
         tl.to(progress, { val: 89, duration: 0.5, ease: "power2.inOut", onUpdate: updateLoader });
-        tl.to(progress, { val: 89, duration: 0.25 }); // pause
+        tl.to(progress, { val: 89, duration: 0.25 }); 
         tl.to(progress, { val: 100, duration: 0.6, ease: "expo.out", onUpdate: updateLoader });
 
-        // 3. The Exit Wipe (Awwwards Style)
-        // Text slightly expands and tracks out just before snapping away
+        // 3. The Exit Wipe
         tl.to([typoStroke, typoSolid], { 
-            scale: 1.05, letterSpacing: '0.02em', duration: 0.5, ease: "power3.inOut" 
+            scale: 1.05, letterSpacing: '0.04em', duration: 0.5, ease: "power3.inOut" 
         });
         
-        // Corner texts slide out
         tl.to('.loader-reveal', { y: '-100%', opacity: 0, duration: 0.5, ease: "expo.in", stagger: 0.05 }, "-=0.3");
         
-        // Brutalist letterbox snap transition out
         tl.to(loader, { 
-            clipPath: 'inset(50% 0 50% 0)', // Collapses perfectly to a horizontal line in the center
+            clipPath: 'inset(50% 0 50% 0)',
             duration: 0.8, 
             ease: "expo.inOut",
             onComplete: () => { loader.style.display = 'none'; }
@@ -673,7 +685,6 @@
 
     window.onload = init;
 
-    // Service Worker Registration
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js').catch(err => console.log('SW Registration failed:', err));
