@@ -4,7 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="theme-color" content="#050505">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>Molecules | Premium Decision Engine</title>
+    
+    <!-- Replace with your actual favicon file path -->
+    <link rel="icon" href="moleculeslogo.jpg" type="image/png">
+    
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
@@ -18,8 +24,7 @@
         }
         
         body {
-            margin: 0;
-            padding: 0;
+            margin: 0; padding: 0;
             background-color: var(--bg);
             color: var(--text);
             font-family: 'Inter', sans-serif;
@@ -29,10 +34,7 @@
             touch-action: none;
         }
 
-        h1, h2, h3, h4, h5, h6, .display-font {
-            font-family: 'Syne', sans-serif;
-        }
-
+        .display-font { font-family: 'Syne', sans-serif; }
         .number-font {
             font-family: 'Space Grotesk', sans-serif;
             font-variant-numeric: tabular-nums;
@@ -41,14 +43,12 @@
 
         /* Custom Cursor */
         #cursor {
-            position: fixed;
-            top: 0; left: 0;
+            position: fixed; top: 0; left: 0;
             width: 12px; height: 12px;
             background-color: var(--accent);
             border-radius: 50%;
             transform: translate(-50%, -50%);
-            pointer-events: none;
-            z-index: 9999;
+            pointer-events: none; z-index: 9999;
             mix-blend-mode: difference;
             transition: width 0.3s cubic-bezier(0.25, 1, 0.5, 1), height 0.3s cubic-bezier(0.25, 1, 0.5, 1);
             will-change: transform;
@@ -67,195 +67,92 @@
 
         /* Cinematic Loader */
         #loader {
-            position: fixed;
-            inset: 0;
-            z-index: 100;
-            background: var(--bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-direction: column;
-            pointer-events: none;
+            position: fixed; inset: 0; z-index: 100;
+            background: var(--bg); display: flex;
+            align-items: center; justify-content: center;
+            flex-direction: column; pointer-events: none;
             transform-origin: top;
         }
         
-        .mask-container {
-            overflow: hidden;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-        }
+        .mask-container { overflow: hidden; display: flex; justify-content: center; align-items: center; }
         
         #loader-percent {
-            font-size: clamp(6rem, 20vw, 15rem);
-            line-height: 0.85;
-            font-weight: 700;
-            color: var(--text);
-            transform: translateY(110%);
+            font-size: clamp(6rem, 20vw, 15rem); line-height: 0.85; font-weight: 700;
+            color: var(--text); transform: translateY(110%);
         }
         
-        #loader-label {
-            transform: translateY(110%);
-        }
+        #loader-label { transform: translateY(110%); }
 
-        #loader-bar-container {
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 100%;
-            height: 2px;
-            background: rgba(255,255,255,0.1);
-        }
-        
-        #loader-bar {
-            height: 100%;
-            width: 0%;
-            background: var(--text);
-        }
+        #loader-bar-container { position: absolute; bottom: 0; left: 0; width: 100%; height: 2px; background: rgba(255,255,255,0.1); }
+        #loader-bar { height: 100%; width: 0%; background: var(--text); }
 
-        /* Canvas Container */
-        #canvas-container {
-            position: fixed;
-            inset: 0;
-            z-index: 1;
-            pointer-events: none;
-        }
+        #canvas-container { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
         /* UI Overlays */
         #ui-layer {
-            position: relative;
-            z-index: 10;
-            height: 100vh;
-            width: 100vw;
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-            padding: 1.5rem;
-            box-sizing: border-box;
-            pointer-events: none;
+            position: relative; z-index: 10;
+            height: 100vh; width: 100vw; display: flex;
+            flex-direction: column; justify-content: space-between;
+            padding: 1.5rem; box-sizing: border-box; pointer-events: none;
         }
 
-        @media (min-width: 768px) {
-            #ui-layer { padding: 2rem; }
-        }
+        @media (min-width: 768px) { #ui-layer { padding: 2rem; } }
 
-        .interactive {
-            pointer-events: auto;
-            cursor: none; 
-        }
+        .interactive { pointer-events: auto; cursor: none; }
 
-        /* Glassmorphism Panels */
         .glass-panel {
             background: rgba(255, 255, 255, 0.02);
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
+            backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px);
             border: 1px solid rgba(255, 255, 255, 0.06);
-            border-radius: 24px;
-            box-shadow: 0 30px 60px rgba(0,0,0,0.4);
+            border-radius: 24px; box-shadow: 0 30px 60px rgba(0,0,0,0.4);
         }
 
-        /* Main Action Button */
         .action-btn {
-            position: absolute;
-            bottom: 8vh;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 110px; height: 110px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 700;
-            font-size: 1.1rem;
-            letter-spacing: 0.05em;
-            text-transform: uppercase;
-            overflow: hidden;
-            transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
-            background: var(--text);
-            color: var(--bg);
-            border: none;
-            box-shadow: 0 10px 30px rgba(255,255,255,0.1);
-            z-index: 20;
+            position: absolute; bottom: 8vh; left: 50%; transform: translateX(-50%);
+            width: 110px; height: 110px; border-radius: 50%; display: flex;
+            align-items: center; justify-content: center; font-weight: 700;
+            font-size: 1.1rem; letter-spacing: 0.05em; text-transform: uppercase;
+            overflow: hidden; transition: transform 0.3s cubic-bezier(0.25, 1, 0.5, 1), box-shadow 0.3s ease;
+            background: var(--text); color: var(--bg); border: none;
+            box-shadow: 0 10px 30px rgba(255,255,255,0.1); z-index: 20;
         }
-        @media (min-width: 768px) {
-            .action-btn { width: 130px; height: 130px; font-size: 1.2rem; bottom: 10vh; }
-        }
+        @media (min-width: 768px) { .action-btn { width: 130px; height: 130px; font-size: 1.2rem; bottom: 10vh; } }
+        
         .action-btn::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: rgba(0,0,0,0.1);
-            border-radius: 50%;
-            transform: scale(0);
-            transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-            z-index: -1;
+            content: ''; position: absolute; inset: 0; background: rgba(0,0,0,0.1); border-radius: 50%;
+            transform: scale(0); transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); z-index: -1;
         }
-        .action-btn:hover {
-            transform: translateX(-50%) scale(1.05);
-            box-shadow: 0 15px 40px rgba(255,255,255,0.2);
-        }
-        .action-btn:hover::before {
-            transform: scale(1);
-        }
-        .action-btn:active {
-            transform: translateX(-50%) scale(0.95);
-        }
+        .action-btn:hover { transform: translateX(-50%) scale(1.05); box-shadow: 0 15px 40px rgba(255,255,255,0.2); }
+        .action-btn:hover::before { transform: scale(1); }
+        .action-btn:active { transform: translateX(-50%) scale(0.95); }
 
-        /* Upgraded Cinematic Result Typography */
         #result-display-container {
-            position: absolute;
-            top: 0; left: 0; width: 100vw; height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            pointer-events: none;
-            z-index: 50;
+            position: absolute; top: 0; left: 0; width: 100vw; height: 100vh;
+            display: flex; align-items: center; justify-content: center;
+            pointer-events: none; z-index: 50;
         }
 
         #result-display {
-            font-size: clamp(3rem, 15vw, 10rem);
-            font-weight: 800;
-            text-transform: uppercase;
-            letter-spacing: -0.02em;
-            color: #ffffff;
-            text-align: center;
-            display: flex;
-            justify-content: center;
-            padding: 0 1rem;
+            font-size: clamp(3rem, 15vw, 10rem); font-weight: 800; text-transform: uppercase;
+            letter-spacing: -0.02em; color: #ffffff; text-align: center; display: flex;
+            justify-content: center; padding: 0 1rem;
         }
 
-        /* Typographic masking elements */
-        .char-mask {
-            overflow: hidden;
-            display: inline-block;
-            padding: 0.1em 0; 
-            margin: -0.1em 0;
-        }
+        .char-mask { overflow: hidden; display: inline-block; padding: 0.1em 0; margin: -0.1em 0; }
         .char-inner {
-            display: inline-block;
-            will-change: transform;
+            display: inline-block; will-change: transform;
             text-shadow: 0 10px 40px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.5);
             transform-origin: bottom center;
         }
 
-        /* Info Panels Layout */
         .info-panel {
-            position: absolute;
-            top: 5.5rem; 
-            left: 1.5rem;
-            right: 1.5rem;
-            transition: opacity 0.5s ease;
+            position: absolute; top: 5.5rem; left: 1.5rem; right: 1.5rem; transition: opacity 0.5s ease;
         }
         @media (min-width: 768px) {
-            .info-panel {
-                top: auto;
-                bottom: 2.5rem;
-                left: 2.5rem;
-                right: auto;
-                width: 320px;
-            }
+            .info-panel { top: auto; bottom: 2.5rem; left: 2.5rem; right: auto; width: 320px; }
         }
 
+        .hidden-custom { opacity: 0; pointer-events: none; display: none; }
         .invisible-custom { opacity: 0; pointer-events: none; }
     </style>
 </head>
@@ -263,7 +160,6 @@
 
     <div id="cursor"></div>
 
-    <!-- Cinematic Loader -->
     <div id="loader">
         <div class="mask-container">
             <div class="number-font" id="loader-percent">000</div>
@@ -276,48 +172,34 @@
         </div>
     </div>
 
-    <!-- 3D Canvas -->
     <div id="canvas-container"></div>
 
-    <!-- UI Overlay -->
     <div id="ui-layer" style="opacity: 0;">
-        
-        <!-- Header -->
         <header class="flex justify-between items-center w-full z-20">
             
-            <!-- Embedded SVG Logo -->
-            <svg class="h-6 md:h-8 w-auto opacity-90 fill-white" version="1.0" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600.000000 88.000000" preserveAspectRatio="xMidYMid meet">
-                <g transform="translate(0.000000,88.000000) scale(0.100000,-0.100000)" stroke="none">
-                    <path d="M3096 795 c-154 -63 -241 -195 -241 -365 1 -105 29 -174 104 -253 147 -156 367 -167 524 -28 26 24 47 47 47 51 0 5 -25 27 -56 49 l-57 41 -32 -29 c-145 -127 -369 -34 -383 159 -5 73 11 122 56 172 51 57 104 81 177 81 65 0 101 -14 154 -59 l31 -26 55 41 c65 49 63 60 -13 116 -107 79 -249 98 -366 50z"/>
-                    <path d="M1283 788 c-24 -26 -56 -115 -48 -129 4 -5 17 -9 30 -9 19 0 26 9 40 50 22 65 38 54 59 -40 27 -117 29 -115 -66 -71 -191 87 -298 90 -298 7 0 -33 16 -62 58 -108 l26 -28 23 22 23 21 -35 39 c-19 21 -35 43 -35 48 0 27 184 -35 283 -95 99 -60 113 -48 97 80 -19 157 -56 235 -109 235 -16 0 -36 -10 -48 -22z"/>
-                    <path d="M1770 435 l0 -375 255 0 255 0 0 75 0 75 -180 0 -180 0 0 300 0 300 -75 0 -75 0 0 -375z"/>
-                    <path d="M2330 735 l0 -75 253 2 252 3 3 73 3 72 -256 0 -255 0 0 -75z"/>
-                    <path d="M3582 523 c3 -318 4 -319 72 -391 54 -58 129 -73 341 -70 l180 3 3 350 c1 193 0 360 -3 373 -5 20 -11 22 -75 22 l-70 0 0 -301 0 -301 -114 4 c-97 2 -119 6 -143 24 -47 35 -52 68 -52 332 l-1 242 -71 0 -70 0 3 -287z"/>
-                    <path d="M4220 435 l0 -375 255 0 255 0 0 75 0 75 -182 2 -183 3 -3 298 -2 297 -70 0 -70 0 0 -375z"/>
-                    <path d="M4772 738 l3 -73 253 -3 252 -2 0 75 0 75 -255 0 -256 0 3 -72z"/>
-                    <path d="M5455 796 c-41 -18 -95 -73 -113 -116 -19 -44 -19 -135 1 -181 8 -19 28 -48 45 -65 54 -54 87 -64 220 -64 106 0 122 -2 146 -21 20 -16 26 -29 26 -59 0 -30 -6 -43 -26 -59 -25 -20 -40 -21 -225 -21 l-199 0 0 -76 0 -75 223 3 c209 3 225 4 265 26 151 81 155 311 6 398 -43 25 -57 28 -178 32 -150 5 -166 12 -166 72 0 66 12 70 218 70 l182 0 0 75 0 75 -197 0 c-141 -1 -207 -5 -228 -14z"/>
-                    <path d="M371 783 c-6 -13 -239 -566 -298 -711 -4 -9 15 -12 74 -12 l80 0 73 175 c40 97 76 177 80 180 4 2 40 -75 81 -173 l74 -177 78 -3 c42 -2 77 0 77 3 0 3 -16 44 -35 92 -19 48 -35 93 -35 100 0 22 62 163 70 158 4 -2 37 -78 74 -167 36 -90 70 -169 75 -176 5 -9 30 -12 83 -10 l76 3 -144 345 c-183 440 -164 398 -175 378 -5 -10 -39 -89 -75 -175 -36 -87 -67 -159 -69 -161 -1 -1 -35 76 -75 173 -40 96 -74 175 -76 175 -2 0 -7 -8 -13 -17z"/>
-                    <path d="M1522 650 c-44 -10 -52 -20 -41 -48 9 -24 23 -25 91 -6 30 9 29 -14 -3 -51 -39 -44 -123 -108 -206 -159 -35 -21 -63 -43 -63 -50 0 -20 30 -43 94 -71 138 -61 248 -65 262 -9 9 37 -2 65 -46 114 l-40 45 -20 -24 -20 -23 35 -40 c20 -21 33 -43 31 -47 -9 -14 -146 19 -187 45 -5 3 23 29 63 57 94 65 174 148 183 186 16 75 -32 105 -133 81z"/>
-                    <path d="M1195 493 c-158 -105 -234 -218 -179 -264 19 -16 107 -16 146 0 23 9 26 14 19 33 -8 21 -14 23 -66 19 -54 -3 -56 -2 -46 17 12 22 118 122 130 122 5 0 11 -39 14 -87 13 -171 57 -273 117 -273 34 0 56 24 81 90 22 57 19 70 -16 70 -19 0 -26 -9 -40 -50 -19 -57 -28 -62 -43 -22 -24 61 -33 113 -39 227 -5 109 -13 145 -32 145 -3 0 -24 -12 -46 -27z"/>
-                    <path d="M2330 290 l0 -230 255 0 255 0 0 75 0 75 -185 0 -185 0 0 80 0 80 110 0 c125 0 124 -1 118 96 l-3 49 -182 3 -183 2 0 -230z"/>
-                    <path d="M4783 513 c-10 -3 -13 -59 -13 -229 l0 -224 255 0 255 0 0 75 0 75 -180 0 -180 0 0 80 0 80 110 0 110 0 0 75 0 75 -172 -1 c-95 0 -179 -3 -185 -6z"/>
-                </g>
-            </svg>
-            
-            <!-- Segmented Control -->
+            <div class="flex items-center gap-5">
+                <!-- Enlarged, Refined SVG Logo without text -->
+                <svg class="h-10 md:h-12 w-auto text-white opacity-85 hover:opacity-100 transition-opacity duration-300 drop-shadow-md" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <g transform="translate(0,600) scale(0.1,-0.1)" stroke="none">
+                        <path d="M1451 3027 c-327 -776 -596 -1415 -598 -1420 -3 -4 136 -6 307 -5 l311 3 285 680 c157 374 288 683 292 687 4 3 108 -235 231 -530 124 -295 254 -606 289 -689 l64 -153 310 0 c244 0 309 3 305 13 -3 6 -71 170 -153 362 -81 193 -147 355 -147 360 0 19 266 645 272 640 3 -3 134 -313 291 -688 l285 -682 311 -3 312 -2 -589 1397 c-324 769 -594 1409 -600 1423 -9 21 -12 22 -20 9 -7 -14 -548 -1291 -568 -1343 -7 -18 -44 68 -480 1101 -58 139 -108 253 -111 253 -3 0 -272 -636 -599 -1413z"/>
+                        <path d="M4810 2161 c-84 -18 -174 -91 -208 -170 -24 -56 -21 -176 6 -227 55 -106 127 -155 238 -162 92 -6 149 14 212 72 61 56 84 106 90 194 4 66 2 78 -27 137 -33 66 -81 114 -143 140 -44 18 -123 26 -168 16z"/>
+                    </g>
+                </svg>
+                
+                <button id="install-btn" class="interactive hidden-custom text-[9px] uppercase tracking-widest bg-white/10 hover:bg-white/20 px-3 py-1.5 rounded-full transition-colors">Install App</button>
+            </div>
+
             <nav class="flex bg-white/5 rounded-full p-1 border border-white/10 backdrop-blur-md relative interactive">
                 <div id="nav-indicator" class="absolute top-1 bottom-1 w-[calc(50%-4px)] bg-white rounded-full transition-transform duration-300 ease-out z-0 translate-x-0"></div>
-                <button class="nav-tab relative z-10 w-24 md:w-28 py-2 text-[10px] md:text-xs font-bold tracking-wider transition-colors duration-300 text-black" onclick="switchMode('coin')">COIN</button>
-                <button class="nav-tab relative z-10 w-24 md:w-28 py-2 text-[10px] md:text-xs font-bold tracking-wider transition-colors duration-300 text-white/50 hover:text-white" onclick="switchMode('yesno')">YES / NO</button>
+                <button class="nav-tab relative z-10 w-20 md:w-28 py-2 text-[10px] md:text-xs font-bold tracking-wider transition-colors duration-300 text-black" onclick="switchMode('coin')">COIN</button>
+                <button class="nav-tab relative z-10 w-20 md:w-28 py-2 text-[10px] md:text-xs font-bold tracking-wider transition-colors duration-300 text-white/50 hover:text-white" onclick="switchMode('yesno')">YES / NO</button>
             </nav>
         </header>
 
-        <!-- Dynamic Result Container -->
         <div id="result-display-container">
             <div id="result-display" class="display-font"></div>
         </div>
 
-        <!-- Mode 1: Coin Stats -->
         <div id="coin-stats" class="info-panel glass-panel p-6 interactive">
             <div class="flex justify-between items-center px-2">
                 <div class="text-center w-full">
@@ -325,7 +207,6 @@
                     <div class="text-[10px] text-white/40 tracking-[0.2em] uppercase mt-3">Heads</div>
                 </div>
                 
-                <!-- Divider -->
                 <div class="w-[1px] h-16 bg-white/10 mx-4"></div>
                 
                 <div class="text-center w-full">
@@ -335,7 +216,6 @@
             </div>
         </div>
 
-        <!-- Mode 2: Yes/No Info -->
         <div id="yesno-info" class="info-panel glass-panel p-6 interactive invisible-custom">
             <h3 class="display-font text-xs text-white/40 mb-3 tracking-[0.2em] uppercase">Decision Engine</h3>
             <p class="text-xs text-white/70 leading-relaxed font-light">
@@ -343,38 +223,31 @@
             </p>
         </div>
 
-        <!-- Action Button -->
         <button id="action-btn" class="action-btn display-font interactive">TOSS</button>
 
     </div>
 
 <script>
     /* =========================================
-       AUDIO & HAPTICS (Using Custom MP3)
+       AUDIO & HAPTICS 
        ========================================= */
     const AudioEngine = (function() {
         let ctx = null;
-        
         const customCoinSound = new Audio('https://www.image2url.com/r2/default/audio/1780284469302-090a554c-9a5c-4622-8126-4ac945d8d97f.mp3'); 
         customCoinSound.preload = 'auto';
         
         function init() {
-            if (!ctx) {
-                ctx = new (window.AudioContext || window.webkitAudioContext)();
-            }
+            if (!ctx) ctx = new (window.AudioContext || window.webkitAudioContext)();
             if (ctx.state === 'suspended') ctx.resume();
-            
             customCoinSound.load();
         }
 
         function playCoinToss() {
             customCoinSound.currentTime = 0; 
-            customCoinSound.play().catch(err => console.log("Audio blocked by browser:", err));
+            customCoinSound.play().catch(err => console.log("Audio playing prevented:", err));
         }
 
-        function playCoinCatch() {
-            if(navigator.vibrate) navigator.vibrate([40]);
-        }
+        function playCoinCatch() { if(navigator.vibrate) navigator.vibrate([40]); }
         
         function playWhoosh() {
             if (!ctx) return;
@@ -383,10 +256,8 @@
             const data = buffer.getChannelData(0);
             for (let i = 0; i < bufferSize; i++) data[i] = Math.random() * 2 - 1;
             
-            const noise = ctx.createBufferSource();
-            noise.buffer = buffer;
-            const filter = ctx.createBiquadFilter();
-            filter.type = 'lowpass';
+            const noise = ctx.createBufferSource(); noise.buffer = buffer;
+            const filter = ctx.createBiquadFilter(); filter.type = 'lowpass';
             filter.frequency.setValueAtTime(200, ctx.currentTime);
             filter.frequency.linearRampToValueAtTime(2000, ctx.currentTime + 1);
             filter.frequency.linearRampToValueAtTime(100, ctx.currentTime + 2);
@@ -402,13 +273,9 @@
 
         function playThud() {
             if (!ctx) return;
-            const osc = ctx.createOscillator();
-            const gain = ctx.createGain();
-            osc.type = 'triangle';
-            osc.frequency.setValueAtTime(150, ctx.currentTime);
-            osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.2);
-            gain.gain.setValueAtTime(0.8, ctx.currentTime);
-            gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
+            const osc = ctx.createOscillator(); const gain = ctx.createGain(); osc.type = 'triangle';
+            osc.frequency.setValueAtTime(150, ctx.currentTime); osc.frequency.exponentialRampToValueAtTime(40, ctx.currentTime + 0.2);
+            gain.gain.setValueAtTime(0.8, ctx.currentTime); gain.gain.exponentialRampToValueAtTime(0.01, ctx.currentTime + 0.4);
             osc.connect(gain); gain.connect(ctx.destination);
             osc.start(); osc.stop(ctx.currentTime + 0.4);
             if(navigator.vibrate) navigator.vibrate([100, 50, 100]);
@@ -422,32 +289,23 @@
        ========================================= */
     const StatsManager = (function() {
         let stats = JSON.parse(localStorage.getItem('molecules_stats')) || { heads: 0, tails: 0 };
-
-        function save() {
-            localStorage.setItem('molecules_stats', JSON.stringify(stats));
-            render();
-        }
-
+        function save() { localStorage.setItem('molecules_stats', JSON.stringify(stats)); render(); }
         function record(result) {
-            if(result === 'HEADS') stats.heads++;
-            else if(result === 'TAILS') stats.tails++;
+            if(result === 'HEADS') stats.heads++; else if(result === 'TAILS') stats.tails++;
             save();
         }
-
         function render() {
             document.getElementById('stat-heads').innerText = stats.heads;
             document.getElementById('stat-tails').innerText = stats.tails;
         }
-
         return { init: render, record };
     })();
 
     /* =========================================
-       THREE.JS SCENE SETUP
+       THREE.JS SCENE
        ========================================= */
     const canvasContainer = document.getElementById('canvas-container');
     const scene = new THREE.Scene();
-    
     const camera = new THREE.PerspectiveCamera(45, window.innerWidth / window.innerHeight, 0.1, 100);
 
     const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true, powerPreference: "high-performance" });
@@ -460,155 +318,85 @@
         camera.updateProjectionMatrix();
         renderer.setSize(window.innerWidth, window.innerHeight);
     }
-    window.addEventListener('resize', updateCamera);
-    updateCamera(); 
+    window.addEventListener('resize', updateCamera); updateCamera(); 
 
-    // APPLE-STYLE STUDIO LIGHTING
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.05);
-    scene.add(ambientLight);
-
+    // STUDIO LIGHTING
+    scene.add(new THREE.AmbientLight(0xffffff, 0.05));
+    
     const frontFill = new THREE.DirectionalLight(0xffffff, 0.6);
-    frontFill.position.set(0, 5, 5);
-    scene.add(frontFill);
+    frontFill.position.set(0, 5, 5); scene.add(frontFill);
 
     const rimLight1 = new THREE.SpotLight(0xffffff, 6);
-    rimLight1.position.set(5, 5, -5);
-    rimLight1.lookAt(0, 0, 0);
-    rimLight1.penumbra = 0.5;
-    scene.add(rimLight1);
+    rimLight1.position.set(5, 5, -5); rimLight1.lookAt(0, 0, 0); rimLight1.penumbra = 0.5; scene.add(rimLight1);
 
     const rimLight2 = new THREE.SpotLight(0xffffff, 3);
-    rimLight2.position.set(-5, -5, -5);
-    rimLight2.lookAt(0, 0, 0);
-    rimLight2.penumbra = 0.5;
-    scene.add(rimLight2);
+    rimLight2.position.set(-5, -5, -5); rimLight2.lookAt(0, 0, 0); rimLight2.penumbra = 0.5; scene.add(rimLight2);
 
     const pointLight = new THREE.PointLight(0xffffff, 2, 20);
-    pointLight.position.set(0, 2, 5);
-    scene.add(pointLight);
+    pointLight.position.set(0, 2, 5); scene.add(pointLight);
 
     /* =========================================
        OBJECT CREATION
        ========================================= */
     function createCoinTexture(text, isTails = false) {
-        const canvas = document.createElement('canvas');
-        canvas.width = 1024; canvas.height = 1024;
+        const canvas = document.createElement('canvas'); canvas.width = 1024; canvas.height = 1024;
         const ctx = canvas.getContext('2d');
+        ctx.fillStyle = '#030303'; ctx.fillRect(0, 0, 1024, 1024);
         
-        ctx.fillStyle = '#030303'; 
-        ctx.fillRect(0, 0, 1024, 1024);
+        ctx.strokeStyle = '#222'; ctx.lineWidth = 12; ctx.beginPath(); ctx.arc(512, 512, 480, 0, Math.PI * 2); ctx.stroke();
+        ctx.strokeStyle = '#333'; ctx.lineWidth = 4; ctx.beginPath(); ctx.arc(512, 512, 450, 0, Math.PI * 2); ctx.stroke();
         
-        ctx.strokeStyle = '#222'; ctx.lineWidth = 12;
-        ctx.beginPath(); ctx.arc(512, 512, 480, 0, Math.PI * 2); ctx.stroke();
-        ctx.strokeStyle = '#333'; ctx.lineWidth = 4;
-        ctx.beginPath(); ctx.arc(512, 512, 450, 0, Math.PI * 2); ctx.stroke();
+        ctx.fillStyle = '#e5e5e5'; ctx.font = 'bold 320px "Syne", sans-serif'; ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
         
-        ctx.fillStyle = '#e5e5e5';
-        ctx.font = 'bold 320px "Syne", sans-serif';
-        ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
-        
-        ctx.translate(512, 512);
-        ctx.rotate(-Math.PI / 2);
+        ctx.translate(512, 512); ctx.rotate(-Math.PI / 2);
         if (isTails) ctx.rotate(Math.PI); 
+        ctx.fillText(text, 0, 15); ctx.translate(-512, -512);
         
-        ctx.fillText(text, 0, 15);
-        ctx.translate(-512, -512);
-        
-        const texture = new THREE.CanvasTexture(canvas);
-        texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
+        const texture = new THREE.CanvasTexture(canvas); texture.anisotropy = renderer.capabilities.getMaxAnisotropy();
         return texture;
     }
 
-    const coinGroup = new THREE.Group();
-    const coinWrapper = new THREE.Group();
-    coinGroup.add(coinWrapper);
-    scene.add(coinGroup);
+    const coinGroup = new THREE.Group(); const coinWrapper = new THREE.Group();
+    coinGroup.add(coinWrapper); scene.add(coinGroup);
 
     const coinGeometry = new THREE.CylinderGeometry(2.5, 2.5, 0.2, 64);
-    
-    const edgeMaterial = new THREE.MeshPhysicalMaterial({ 
-        color: 0x333333,
-        metalness: 1.0, 
-        roughness: 0.1, 
-        clearcoat: 1.0 
-    });
-    
-    const faceMaterialConfig = {
-        metalness: 0.9, 
-        roughness: 0.25, 
-        clearcoat: 0.2
-    };
+    const edgeMaterial = new THREE.MeshPhysicalMaterial({ color: 0x333333, metalness: 1.0, roughness: 0.1, clearcoat: 1.0 });
+    const faceMaterialConfig = { metalness: 0.9, roughness: 0.25, clearcoat: 0.2 };
     
     const headsMaterial = new THREE.MeshPhysicalMaterial({ ...faceMaterialConfig, map: createCoinTexture('H', false) });
     const tailsMaterial = new THREE.MeshPhysicalMaterial({ ...faceMaterialConfig, map: createCoinTexture('T', true) });
 
     const coinMesh = new THREE.Mesh(coinGeometry, [edgeMaterial, headsMaterial, tailsMaterial]);
-    coinMesh.rotation.x = Math.PI / 2;
-    coinWrapper.add(coinMesh);
+    coinMesh.rotation.x = Math.PI / 2; coinWrapper.add(coinMesh);
 
-    // KINETIC GYROSCOPE
-    const gyroGroup = new THREE.Group();
-    gyroGroup.visible = false;
-    scene.add(gyroGroup);
-
-    const ringMaterial = new THREE.MeshPhysicalMaterial({ 
-        color: 0xffffff, 
-        metalness: 1.0, 
-        roughness: 0.05,
-        clearcoat: 1.0
-    });
-
-    const rings = [];
-    const ringConfig = [[2.6, 0.02], [2.1, 0.04], [1.6, 0.06]];
+    // GYROSCOPE
+    const gyroGroup = new THREE.Group(); gyroGroup.visible = false; scene.add(gyroGroup);
+    const ringMaterial = new THREE.MeshPhysicalMaterial({ color: 0xffffff, metalness: 1.0, roughness: 0.05, clearcoat: 1.0 });
+    const rings = []; const ringConfig = [[2.6, 0.02], [2.1, 0.04], [1.6, 0.06]];
     
     ringConfig.forEach(([radius, thickness], index) => {
         const geometry = new THREE.TorusGeometry(radius, thickness, 64, 128);
         const mesh = new THREE.Mesh(geometry, ringMaterial);
-        
         mesh.userData = {
             speedX: (index % 2 === 0 ? 1 : -1) * (0.005 + Math.random() * 0.01),
             speedY: (index % 3 === 0 ? 1 : -1) * (0.005 + Math.random() * 0.01),
             speedZ: (index % 2 !== 0 ? 1 : -1) * (0.005 + Math.random() * 0.01)
         };
-        
-        rings.push(mesh);
-        gyroGroup.add(mesh);
+        rings.push(mesh); gyroGroup.add(mesh);
     });
 
-    /* =========================================
-       ANIMATION LOGIC
-       ========================================= */
-    const clock = new THREE.Clock();
-    let currentMode = 'coin'; 
-    let isAnimating = false;
+    const clock = new THREE.Clock(); let currentMode = 'coin'; let isAnimating = false;
 
     function startGyroIdle() {
         rings.forEach((ring, index) => {
-            const durationX = 12 + index * 2;
-            const durationY = 15 - index;
-            const durationZ = 10 + index * 3;
-            
-            const dirX = index % 2 === 0 ? "+=" : "-=";
-            const dirY = index % 3 === 0 ? "+=" : "-=";
-            const dirZ = index % 2 !== 0 ? "+=" : "-=";
-
             gsap.to(ring.rotation, {
-                x: `${dirX}${Math.PI * 2}`,
-                duration: durationX,
-                repeat: -1,
-                ease: "none"
+                x: `${index % 2 === 0 ? "+=" : "-="}${Math.PI * 2}`, duration: 12 + index * 2, repeat: -1, ease: "none"
             });
             gsap.to(ring.rotation, {
-                y: `${dirY}${Math.PI * 2}`,
-                duration: durationY,
-                repeat: -1,
-                ease: "none"
+                y: `${index % 3 === 0 ? "+=" : "-="}${Math.PI * 2}`, duration: 15 - index, repeat: -1, ease: "none"
             });
             gsap.to(ring.rotation, {
-                z: `${dirZ}${Math.PI * 2}`,
-                duration: durationZ,
-                repeat: -1,
-                ease: "none"
+                z: `${index % 2 !== 0 ? "+=" : "-="}${Math.PI * 2}`, duration: 10 + index * 3, repeat: -1, ease: "none"
             });
         });
     }
@@ -633,162 +421,87 @@
     }
 
     /* =========================================
-       PREMIUM TEXT REVEAL ENGINE
+       TEXT ENGINE
        ========================================= */
     const resultDisplay = document.getElementById('result-display');
-
     function splitTextForAnimation(text) {
-        resultDisplay.innerHTML = '';
-        const charElements = [];
-        
+        resultDisplay.innerHTML = ''; const charElements = [];
         text.split('').forEach(char => {
-            const mask = document.createElement('span');
-            mask.className = 'char-mask';
-            
-            const inner = document.createElement('span');
-            inner.className = 'char-inner';
-            inner.innerText = char;
-            
-            if(char === ' ') {
-                mask.style.width = '0.3em';
-            }
-            
-            mask.appendChild(inner);
-            resultDisplay.appendChild(mask);
-            charElements.push(inner);
+            const mask = document.createElement('span'); mask.className = 'char-mask';
+            const inner = document.createElement('span'); inner.className = 'char-inner'; inner.innerText = char;
+            if(char === ' ') mask.style.width = '0.3em';
+            mask.appendChild(inner); resultDisplay.appendChild(mask); charElements.push(inner);
         });
-        
         return charElements;
     }
 
     function hideCurrentResult() {
         const currentChars = resultDisplay.querySelectorAll('.char-inner');
         if (currentChars.length === 0) return Promise.resolve();
-        
         return new Promise(resolve => {
-            gsap.to(currentChars, {
-                y: '-110%',
-                rotationZ: -10,
-                opacity: 0,
-                duration: 0.5,
-                ease: "expo.in",
-                stagger: 0.02,
-                onComplete: resolve
-            });
+            gsap.to(currentChars, { y: '-110%', rotationZ: -10, opacity: 0, duration: 0.5, ease: "expo.in", stagger: 0.02, onComplete: resolve });
         });
     }
 
     function showResult(text) {
         const chars = splitTextForAnimation(text);
-        
         gsap.fromTo(chars, 
             { y: '110%', rotationZ: 15, scale: 0.9, opacity: 0 },
-            { 
-                y: '0%', 
-                rotationZ: 0, 
-                scale: 1, 
-                opacity: 1, 
-                duration: 1.2, 
-                ease: "expo.out", 
-                stagger: 0.05 
-            }
+            { y: '0%', rotationZ: 0, scale: 1, opacity: 1, duration: 1.2, ease: "expo.out", stagger: 0.05 }
         );
     }
 
     /* =========================================
-       INTERACTION FUNCTIONS
+       INTERACTION
        ========================================= */
     const actionBtn = document.getElementById('action-btn');
 
     function performCoinToss() {
         if(isAnimating) return;
-        isAnimating = true;
-        AudioEngine.init();
+        isAnimating = true; AudioEngine.init();
         
         hideCurrentResult();
-        
         const isHeads = Math.random() > 0.5;
         const resultText = isHeads ? 'HEADS' : 'TAILS';
-        
-        const spins = 5;
-        const currentWrapperRot = coinWrapper.rotation.x;
-        const baseRotationsCount = Math.floor(currentWrapperRot / (Math.PI * 2));
-        const targetRotX = (baseRotationsCount + spins) * (Math.PI * 2) + (isHeads ? 0 : Math.PI);
+        const targetRotX = (Math.floor(coinWrapper.rotation.x / (Math.PI * 2)) + 5) * (Math.PI * 2) + (isHeads ? 0 : Math.PI);
 
         const tl = gsap.timeline({
             onComplete: () => {
-                isAnimating = false;
-                StatsManager.record(resultText);
-                showResult(resultText);
-                AudioEngine.playCoinCatch();
+                isAnimating = false; StatsManager.record(resultText); showResult(resultText); AudioEngine.playCoinCatch();
             }
         });
 
         tl.to(coinGroup.position, { y: 5, duration: 1, ease: "power2.out" }, 0);
-        
-        tl.to(coinWrapper.rotation, {
-            x: targetRotX,
-            duration: 2.2,
-            ease: "expo.inOut",
-            onStart: () => AudioEngine.playCoinToss()
-        }, 0);
-
+        tl.to(coinWrapper.rotation, { x: targetRotX, duration: 2.2, ease: "expo.inOut", onStart: () => AudioEngine.playCoinToss() }, 0);
         tl.to(coinGroup.position, { y: 0, duration: 1, ease: "bounce.out" }, 1.2);
     }
 
     function performDecision() {
         if(isAnimating) return;
-        isAnimating = true;
-        AudioEngine.init();
+        isAnimating = true; AudioEngine.init();
         
-        hideCurrentResult();
-        AudioEngine.playWhoosh();
-        
-        const isYes = Math.random() > 0.5;
-        const resultText = isYes ? 'YES' : 'NO';
+        hideCurrentResult(); AudioEngine.playWhoosh();
+        const resultText = Math.random() > 0.5 ? 'YES' : 'NO';
         
         gsap.killTweensOf(rings.map(r => r.rotation));
-        
         const tl = gsap.timeline();
         
         rings.forEach((ring, index) => {
-            const currentX = ring.rotation.x;
-            const currentY = ring.rotation.y;
-            const currentZ = ring.rotation.z;
-            
-            const spinsX = 4 + (index % 2 === 0 ? 1 : -1);
-            const spinsY = 4 + index;
-            
-            const targetX = Math.ceil(currentX / (Math.PI * 2)) * (Math.PI * 2) + (Math.PI * 2 * spinsX);
-            const targetY = Math.ceil(currentY / (Math.PI * 2)) * (Math.PI * 2) + (Math.PI * 2 * spinsY);
-            const targetZ = Math.ceil(currentZ / (Math.PI * 2)) * (Math.PI * 2);
-
-            tl.to(ring.rotation, {
-                x: targetX,
-                y: targetY,
-                z: targetZ,
-                duration: 2.5,
-                ease: "expo.inOut" 
-            }, 0);
+            const targetX = Math.ceil(ring.rotation.x / (Math.PI * 2)) * (Math.PI * 2) + (Math.PI * 2 * (4 + (index % 2 === 0 ? 1 : -1)));
+            const targetY = Math.ceil(ring.rotation.y / (Math.PI * 2)) * (Math.PI * 2) + (Math.PI * 2 * (4 + index));
+            const targetZ = Math.ceil(ring.rotation.z / (Math.PI * 2)) * (Math.PI * 2);
+            tl.to(ring.rotation, { x: targetX, y: targetY, z: targetZ, duration: 2.5, ease: "expo.inOut" }, 0);
         });
 
         tl.call(() => AudioEngine.playThud(), [], 2.4);
-        tl.call(() => { showResult(resultText); }, [], 2.5);
-        
-        tl.call(() => {
-            isAnimating = false;
-            startGyroIdle(); 
-        }, [], 4.5);
+        tl.call(() => showResult(resultText), [], 2.5);
+        tl.call(() => { isAnimating = false; startGyroIdle(); }, [], 4.5);
     }
 
     actionBtn.addEventListener('click', () => {
-        if(currentMode === 'coin') performCoinToss();
-        else performDecision();
+        if(currentMode === 'coin') performCoinToss(); else performDecision();
     });
 
-    /* =========================================
-       UI & MODE SWITCHING
-       ========================================= */
     window.switchMode = function(mode) {
         if(isAnimating || currentMode === mode) return;
         currentMode = mode;
@@ -798,159 +511,119 @@
 
         if (mode === 'yesno') {
             indicator.style.transform = 'translateX(100%)';
-            tabs[0].classList.replace('text-black', 'text-white/50');
-            tabs[0].classList.add('hover:text-white');
-            tabs[1].classList.replace('text-white/50', 'text-black');
-            tabs[1].classList.remove('hover:text-white');
+            tabs[0].classList.replace('text-black', 'text-white/50'); tabs[0].classList.add('hover:text-white');
+            tabs[1].classList.replace('text-white/50', 'text-black'); tabs[1].classList.remove('hover:text-white');
         } else {
             indicator.style.transform = 'translateX(0)';
-            tabs[1].classList.replace('text-black', 'text-white/50');
-            tabs[1].classList.add('hover:text-white');
-            tabs[0].classList.replace('text-white/50', 'text-black');
-            tabs[0].classList.remove('hover:text-white');
+            tabs[1].classList.replace('text-black', 'text-white/50'); tabs[1].classList.add('hover:text-white');
+            tabs[0].classList.replace('text-white/50', 'text-black'); tabs[0].classList.remove('hover:text-white');
         }
 
         hideCurrentResult();
         actionBtn.innerText = mode === 'coin' ? 'TOSS' : 'ASK';
 
         gsap.to(mode === 'coin' ? gyroGroup.scale : coinGroup.scale, {
-            x: 0, y: 0, z: 0,
-            duration: 0.4,
-            ease: "back.in(1.7)",
+            x: 0, y: 0, z: 0, duration: 0.4, ease: "back.in(1.7)",
             onComplete: () => {
                 if(mode === 'coin') {
-                    gyroGroup.visible = false;
-                    coinGroup.visible = true;
-                    document.getElementById('coin-stats').classList.remove('invisible-custom');
-                    document.getElementById('yesno-info').classList.add('invisible-custom');
+                    gyroGroup.visible = false; coinGroup.visible = true;
+                    document.getElementById('coin-stats').classList.remove('invisible-custom'); document.getElementById('yesno-info').classList.add('invisible-custom');
                 } else {
-                    coinGroup.visible = false;
-                    gyroGroup.visible = true;
-                    document.getElementById('coin-stats').classList.add('invisible-custom');
-                    document.getElementById('yesno-info').classList.remove('invisible-custom');
+                    coinGroup.visible = false; gyroGroup.visible = true;
+                    document.getElementById('coin-stats').classList.add('invisible-custom'); document.getElementById('yesno-info').classList.remove('invisible-custom');
                 }
-                
                 gsap.fromTo(mode === 'coin' ? coinGroup.scale : gyroGroup.scale,
-                    { x: 0, y: 0, z: 0 },
-                    { x: 1, y: 1, z: 1, duration: 0.8, ease: "elastic.out(1, 0.5)" }
+                    { x: 0, y: 0, z: 0 }, { x: 1, y: 1, z: 1, duration: 0.8, ease: "elastic.out(1, 0.5)" }
                 );
             }
         });
     }
 
     /* =========================================
-       INITIALIZATION & LOAD SEQUENCE
+       INITIALIZATION & PWA
        ========================================= */
     function init() {
         StatsManager.init();
         
         const cursor = document.getElementById('cursor');
-        document.addEventListener('mousemove', (e) => {
-            gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" });
-        });
+        document.addEventListener('mousemove', (e) => { gsap.to(cursor, { x: e.clientX, y: e.clientY, duration: 0.1, ease: "power2.out" }); });
 
         const tl = gsap.timeline();
         const percentEl = document.getElementById('loader-percent');
         const labelEl = document.getElementById('loader-label');
         const loader = document.getElementById('loader');
         
-        tl.to([percentEl, labelEl], {
-            y: 0,
-            duration: 1.2,
-            stagger: 0.1,
-            ease: "expo.out"
-        });
+        tl.to([percentEl, labelEl], { y: 0, duration: 1.2, stagger: 0.1, ease: "expo.out" });
 
         let progress = { val: 0 };
         tl.to(progress, {
-            val: 100,
-            duration: 2.2,
-            ease: "power4.inOut",
+            val: 100, duration: 2.2, ease: "power4.inOut",
             onUpdate: function() {
                 percentEl.innerText = Math.floor(progress.val).toString().padStart(3, '0');
                 document.getElementById('loader-bar').style.width = progress.val + '%';
             }
         }, "-=0.6");
 
-        tl.to([percentEl, labelEl], {
-            y: "-110%",
-            duration: 0.8,
-            stagger: 0.05,
-            ease: "expo.in"
-        });
-
-        tl.to(loader, {
-            yPercent: -100,
-            duration: 1.2,
-            ease: "expo.inOut",
-            onComplete: () => { loader.style.display = 'none'; }
-        }, "-=0.2");
-
-        tl.fromTo(coinGroup.position, 
-            { y: 15, z: -10 },
-            { y: 0, z: 0, duration: 2, ease: "expo.out" },
-            "-=0.8"
-        );
-        tl.fromTo(coinWrapper.rotation,
-            { x: Math.PI * 4, z: Math.PI / 2 },
-            { x: 0, z: 0, duration: 2.5, ease: "power3.out" },
-            "-=2"
-        );
-
-        tl.to('#ui-layer', { 
-            opacity: 1, duration: 1, ease: "power2.out" 
-        }, "-=1.5");
+        tl.to([percentEl, labelEl], { y: "-110%", duration: 0.8, stagger: 0.05, ease: "expo.in" });
+        tl.to(loader, { yPercent: -100, duration: 1.2, ease: "expo.inOut", onComplete: () => { loader.style.display = 'none'; } }, "-=0.2");
+        tl.fromTo(coinGroup.position, { y: 15, z: -10 }, { y: 0, z: 0, duration: 2, ease: "expo.out" }, "-=0.8");
+        tl.fromTo(coinWrapper.rotation, { x: Math.PI * 4, z: Math.PI / 2 }, { x: 0, z: 0, duration: 2.5, ease: "power3.out" }, "-=2");
+        tl.to('#ui-layer', { opacity: 1, duration: 1, ease: "power2.out" }, "-=1.5");
 
         renderLoop();
     }
 
     window.onload = init;
 
-    /* =========================================
-       OFFLINE CACHING / SERVICE WORKER
-       ========================================= */
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
+    // DYNAMIC PWA & SERVICE WORKER INJECTION
+    (function initPWA() {
+        const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet"><g transform="translate(0,600) scale(0.1,-0.1)" fill="#ffffff" stroke="none"><path d="M1451 3027 c-327 -776 -596 -1415 -598 -1420 -3 -4 136 -6 307 -5 l311 3 285 680 c157 374 288 683 292 687 4 3 108 -235 231 -530 124 -295 254 -606 289 -689 l64 -153 310 0 c244 0 309 3 305 13 -3 6 -71 170 -153 362 -81 193 -147 355 -147 360 0 19 266 645 272 640 3 -3 134 -313 291 -688 l285 -682 311 -3 312 -2 -589 1397 c-324 769 -594 1409 -600 1423 -9 21 -12 22 -20 9 -7 -14 -548 -1291 -568 -1343 -7 -18 -44 68 -480 1101 -58 139 -108 253 -111 253 -3 0 -272 -636 -599 -1413z"/><path d="M4810 2161 c-84 -18 -174 -91 -208 -170 -24 -56 -21 -176 6 -227 55 -106 127 -155 238 -162 92 -6 149 14 212 72 61 56 84 106 90 194 4 66 2 78 -27 137 -33 66 -81 114 -143 140 -44 18 -123 26 -168 16z"/></g></svg>`;
+        
+        const manifest = {
+            name: "Molecules",
+            short_name: "Molecules",
+            start_url: "./",
+            display: "standalone",
+            background_color: "#050505",
+            theme_color: "#050505",
+            icons: [{ src: "data:image/svg+xml;base64," + btoa(svgIcon), sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }]
+        };
+        
+        const link = document.createElement('link');
+        link.rel = 'manifest';
+        link.href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type: 'application/manifest+json'}));
+        document.head.appendChild(link);
+
+        if ('serviceWorker' in navigator) {
             const swContent = `
-                const CACHE_NAME = 'molecules-v2';
-                const ASSETS = [
+                const CACHE = 'molecules-app-v4';
+                self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll([
                     './',
-                    './index.html',
                     'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
-                    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js'
-                ];
-                self.addEventListener('install', e => {
-                    e.waitUntil(caches.open(CACHE_NAME).then(c => c.addAll(ASSETS)));
-                });
-                
-                self.addEventListener('fetch', e => {
-                    e.respondWith(
-                        caches.match(e.request).then(res => {
-                            return res || fetch(e.request).then(fetchRes => {
-                                return caches.open(CACHE_NAME).then(cache => {
-                                    if (e.request.method === 'GET') {
-                                        cache.put(e.request, fetchRes.clone());
-                                    }
-                                    return fetchRes;
-                                });
-                            });
-                        }).catch(() => {})
-                    );
-                });
+                    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
+                    'https://www.image2url.com/r2/default/audio/1780284469302-090a554c-9a5c-4622-8126-4ac945d8d97f.mp3'
+                ]))));
+                self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(res => res || fetch(e.request))));
             `;
-            const blob = new Blob([swContent], { type: 'application/javascript' });
-            const swUrl = URL.createObjectURL(blob);
-            
-            navigator.serviceWorker.register(swUrl).catch(err => {
-                if ('caches' in window) {
-                    caches.open('molecules-v2').then(cache => cache.addAll([
-                        window.location.href,
-                        'https://www.image2url.com/r2/default/audio/1780284469302-090a554c-9a5c-4622-8126-4ac945d8d97f.mp3'
-                    ])).catch(() => {});
-                }
-            });
+            navigator.serviceWorker.register(URL.createObjectURL(new Blob([swContent], { type: 'application/javascript' }))).catch(()=>{});
+        }
+
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            document.getElementById('install-btn').classList.remove('hidden-custom');
         });
-    }
+
+        document.getElementById('install-btn').addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                document.getElementById('install-btn').classList.add('hidden-custom');
+            }
+        });
+    })();
 
 </script>
 </body>
