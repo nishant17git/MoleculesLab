@@ -6,10 +6,13 @@
     <meta name="theme-color" content="#050505">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>Molecules | Premium Decision Engine</title>
+    <title>Molecules Lab</title>
     
-    <!-- Replace with your actual favicon file path -->
-    <link rel="icon" href="moleculeslogo.jpg" type="image/png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-touch-icon.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="manifest" href="site.webmanifest">
     
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
@@ -41,7 +44,6 @@
             letter-spacing: -0.04em;
         }
 
-        /* Custom Cursor */
         #cursor {
             position: fixed; top: 0; left: 0;
             width: 12px; height: 12px;
@@ -65,7 +67,6 @@
             .interactive { cursor: auto !important; }
         }
 
-        /* Cinematic Loader */
         #loader {
             position: fixed; inset: 0; z-index: 100;
             background: var(--bg); display: flex;
@@ -88,7 +89,6 @@
 
         #canvas-container { position: fixed; inset: 0; z-index: 1; pointer-events: none; }
 
-        /* UI Overlays */
         #ui-layer {
             position: relative; z-index: 10;
             height: 100vh; width: 100vw; display: flex;
@@ -177,9 +177,8 @@
     <div id="ui-layer" style="opacity: 0;">
         <header class="flex justify-between items-center w-full z-20">
             
-            <div class="flex items-center gap-5">
-                <!-- Enlarged, Refined SVG Logo without text -->
-                <svg class="h-10 md:h-12 w-auto text-white opacity-85 hover:opacity-100 transition-opacity duration-300 drop-shadow-md" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+            <div class="flex items-center gap-4 md:gap-5">
+                <svg class="h-12 md:h-14 w-auto text-white opacity-85 hover:opacity-100 transition-opacity duration-300 drop-shadow-md" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <g transform="translate(0,600) scale(0.1,-0.1)" stroke="none">
                         <path d="M1451 3027 c-327 -776 -596 -1415 -598 -1420 -3 -4 136 -6 307 -5 l311 3 285 680 c157 374 288 683 292 687 4 3 108 -235 231 -530 124 -295 254 -606 289 -689 l64 -153 310 0 c244 0 309 3 305 13 -3 6 -71 170 -153 362 -81 193 -147 355 -147 360 0 19 266 645 272 640 3 -3 134 -313 291 -688 l285 -682 311 -3 312 -2 -589 1397 c-324 769 -594 1409 -600 1423 -9 21 -12 22 -20 9 -7 -14 -548 -1291 -568 -1343 -7 -18 -44 68 -480 1101 -58 139 -108 253 -111 253 -3 0 -272 -636 -599 -1413z"/>
                         <path d="M4810 2161 c-84 -18 -174 -91 -208 -170 -24 -56 -21 -176 6 -227 55 -106 127 -155 238 -162 92 -6 149 14 212 72 61 56 84 106 90 194 4 66 2 78 -27 137 -33 66 -81 114 -143 140 -44 18 -123 26 -168 16z"/>
@@ -200,23 +199,23 @@
             <div id="result-display" class="display-font"></div>
         </div>
 
-        <div id="coin-stats" class="info-panel glass-panel p-6 interactive">
-            <div class="flex justify-between items-center px-2">
+        <div id="coin-stats" class="info-panel glass-panel p-5 md:p-6 interactive">
+            <div class="flex justify-between items-center px-4">
                 <div class="text-center w-full">
-                    <div class="number-font text-5xl md:text-6xl text-white font-bold leading-none" id="stat-heads">0</div>
-                    <div class="text-[10px] text-white/40 tracking-[0.2em] uppercase mt-3">Heads</div>
+                    <div class="number-font text-4xl md:text-5xl text-white font-bold leading-none" id="stat-heads">0</div>
+                    <div class="text-[9px] text-white/40 tracking-[0.2em] uppercase mt-2">Heads</div>
                 </div>
                 
-                <div class="w-[1px] h-16 bg-white/10 mx-4"></div>
+                <div class="w-[1px] h-12 bg-white/10 mx-6"></div>
                 
                 <div class="text-center w-full">
-                    <div class="number-font text-5xl md:text-6xl text-white font-bold leading-none" id="stat-tails">0</div>
-                    <div class="text-[10px] text-white/40 tracking-[0.2em] uppercase mt-3">Tails</div>
+                    <div class="number-font text-4xl md:text-5xl text-white font-bold leading-none" id="stat-tails">0</div>
+                    <div class="text-[9px] text-white/40 tracking-[0.2em] uppercase mt-2">Tails</div>
                 </div>
             </div>
         </div>
 
-        <div id="yesno-info" class="info-panel glass-panel p-6 interactive invisible-custom">
+        <div id="yesno-info" class="info-panel glass-panel p-5 md:p-6 interactive invisible-custom">
             <h3 class="display-font text-xs text-white/40 mb-3 tracking-[0.2em] uppercase">Decision Engine</h3>
             <p class="text-xs text-white/70 leading-relaxed font-light">
                 Formulate your query. The kinetic rings will calculate the quantum probability and align to reveal your answer.
@@ -494,7 +493,7 @@
         });
 
         tl.call(() => AudioEngine.playThud(), [], 2.4);
-        tl.call(() => showResult(resultText), [], 2.5);
+        tl.call(() => { showResult(resultText); }, [], 2.5);
         tl.call(() => { isAnimating = false; startGyroIdle(); }, [], 4.5);
     }
 
@@ -540,7 +539,7 @@
     }
 
     /* =========================================
-       INITIALIZATION & PWA
+       INITIALIZATION & SW REGISTRATION
        ========================================= */
     function init() {
         StatsManager.init();
@@ -575,38 +574,11 @@
 
     window.onload = init;
 
-    // DYNAMIC PWA & SERVICE WORKER INJECTION
-    (function initPWA() {
-        const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 600 600" preserveAspectRatio="xMidYMid meet"><g transform="translate(0,600) scale(0.1,-0.1)" fill="#ffffff" stroke="none"><path d="M1451 3027 c-327 -776 -596 -1415 -598 -1420 -3 -4 136 -6 307 -5 l311 3 285 680 c157 374 288 683 292 687 4 3 108 -235 231 -530 124 -295 254 -606 289 -689 l64 -153 310 0 c244 0 309 3 305 13 -3 6 -71 170 -153 362 -81 193 -147 355 -147 360 0 19 266 645 272 640 3 -3 134 -313 291 -688 l285 -682 311 -3 312 -2 -589 1397 c-324 769 -594 1409 -600 1423 -9 21 -12 22 -20 9 -7 -14 -548 -1291 -568 -1343 -7 -18 -44 68 -480 1101 -58 139 -108 253 -111 253 -3 0 -272 -636 -599 -1413z"/><path d="M4810 2161 c-84 -18 -174 -91 -208 -170 -24 -56 -21 -176 6 -227 55 -106 127 -155 238 -162 92 -6 149 14 212 72 61 56 84 106 90 194 4 66 2 78 -27 137 -33 66 -81 114 -143 140 -44 18 -123 26 -168 16z"/></g></svg>`;
-        
-        const manifest = {
-            name: "Molecules",
-            short_name: "Molecules",
-            start_url: "./",
-            display: "standalone",
-            background_color: "#050505",
-            theme_color: "#050505",
-            icons: [{ src: "data:image/svg+xml;base64," + btoa(svgIcon), sizes: "512x512", type: "image/svg+xml", purpose: "any maskable" }]
-        };
-        
-        const link = document.createElement('link');
-        link.rel = 'manifest';
-        link.href = URL.createObjectURL(new Blob([JSON.stringify(manifest)], {type: 'application/manifest+json'}));
-        document.head.appendChild(link);
-
-        if ('serviceWorker' in navigator) {
-            const swContent = `
-                const CACHE = 'molecules-app-v4';
-                self.addEventListener('install', e => e.waitUntil(caches.open(CACHE).then(c => c.addAll([
-                    './',
-                    'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
-                    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js',
-                    'https://www.image2url.com/r2/default/audio/1780284469302-090a554c-9a5c-4622-8126-4ac945d8d97f.mp3'
-                ]))));
-                self.addEventListener('fetch', e => e.respondWith(caches.match(e.request).then(res => res || fetch(e.request))));
-            `;
-            navigator.serviceWorker.register(URL.createObjectURL(new Blob([swContent], { type: 'application/javascript' }))).catch(()=>{});
-        }
+    // Service Worker Registration
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('sw.js').catch(err => console.log('SW Registration failed:', err));
+        });
 
         let deferredPrompt;
         window.addEventListener('beforeinstallprompt', (e) => {
@@ -623,7 +595,7 @@
                 document.getElementById('install-btn').classList.add('hidden-custom');
             }
         });
-    })();
+    }
 
 </script>
 </body>
