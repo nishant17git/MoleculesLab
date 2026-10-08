@@ -1,0 +1,92 @@
+/* ==========================================================================
+   feedback.css — custom cursor and status toast
+   ========================================================================== */
+
+/* ---- Custom cursor (desktop / fine pointers only) ---- */
+
+.cursor {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    mix-blend-mode: difference;
+    pointer-events: none;
+    opacity: 0;
+    will-change: transform;
+}
+
+.cursor.is-active { opacity: 1; }
+
+@media (pointer: coarse) {
+    .cursor { display: none !important; }
+}
+
+/* ---- Toast: connection / update status ---- */
+
+.toast {
+    position: fixed;
+    left: 50%;
+    bottom: calc(var(--action-bottom) + var(--action-size) + 1rem);
+    z-index: 90;
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    max-width: min(90vw, 26rem);
+    padding: 0.5rem 1rem;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 9999px;
+    background: rgb(12 12 12 / 0.88);
+    color: rgb(255 255 255 / 0.85);
+    font-family: var(--font-brand);
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    white-space: nowrap;
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+    transform: translate(-50%, 8px);
+    transition:
+        opacity 0.3s var(--ease-out),
+        transform 0.3s var(--ease-out),
+        visibility 0s linear 0.3s;
+}
+
+.toast.is-visible {
+    opacity: 1;
+    visibility: visible;
+    transform: translate(-50%, 0);
+    transition-delay: 0s;
+}
+
+.toast.has-action.is-visible { pointer-events: auto; }
+
+.toast__dot {
+    flex: none;
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: #ffffff;
+}
+
+.toast[data-tone='offline'] .toast__dot { background: rgb(255 255 255 / 0.35); }
+
+.toast__action {
+    flex: none;
+    margin: -0.15rem -0.5rem -0.15rem 0;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    background: #ffffff;
+    color: #000000;
+    font-size: 9px;
+    letter-spacing: 0.12em;
+    transition: opacity 150ms var(--ease-standard);
+}
+
+.toast__action:hover { opacity: 0.85; }
+.toast__action[hidden] { display: none; }

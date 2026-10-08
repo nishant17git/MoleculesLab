@@ -1,0 +1,116 @@
+/* ==========================================================================
+   layout.css — app shell: WebGL stage, UI layer, header, brand, mode switcher
+   ========================================================================== */
+
+/* ---- WebGL stage ---- */
+
+.scene {
+    position: fixed;
+    inset: 0;
+    z-index: 1;
+    pointer-events: none;
+}
+
+/* ---- UI layer (click-through; interactive children opt in) ---- */
+
+.ui-layer {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
+    padding: var(--layout-pad);
+    pointer-events: none;
+    opacity: 0;
+}
+
+html.is-ready .ui-layer {
+    opacity: 1;
+    transition: opacity 0.7s var(--ease-out);
+}
+
+/* ---- Header ---- */
+
+.app-header {
+    z-index: 20;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.brand__logo {
+    height: 3rem;
+    width: auto;
+    color: #ffffff;
+    opacity: 0.85;
+    transition: opacity 300ms var(--ease-standard);
+    filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+}
+
+.brand__logo:hover { opacity: 1; }
+
+@media (min-width: 768px) {
+    .brand { gap: 1.25rem; }
+    .brand__logo { height: 3.5rem; }
+}
+
+/* ---- Mode switcher (COIN / YES-NO) ---- */
+
+.mode-nav {
+    position: relative;
+    display: flex;
+    padding: 0.25rem;
+    border: 1px solid rgb(255 255 255 / 0.1);
+    border-radius: 9999px;
+    background-color: rgb(255 255 255 / 0.05);
+    -webkit-backdrop-filter: blur(12px);
+    backdrop-filter: blur(12px);
+}
+
+.mode-nav__indicator {
+    position: absolute;
+    top: 0.25rem;
+    bottom: 0.25rem;
+    z-index: 0;
+    width: calc(50% - 4px);
+    border-radius: 9999px;
+    background-color: #ffffff;
+    transition: transform 300ms var(--ease-out);
+}
+
+.mode-nav[data-mode='yesno'] .mode-nav__indicator {
+    transform: translateX(100%);
+}
+
+.mode-nav__tab {
+    position: relative;
+    z-index: 10;
+    width: 5rem;
+    padding: 0.5rem 0;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.05em;
+    color: rgb(255 255 255 / 0.5);
+    transition: color 300ms var(--ease-standard);
+}
+
+.mode-nav__tab:not(.is-active):hover { color: #ffffff; }
+.mode-nav__tab.is-active             { color: #000000; }
+
+@media (min-width: 768px) {
+    .mode-nav__tab {
+        width: 7rem;
+        font-size: 0.75rem;
+        line-height: 1rem;
+    }
+}

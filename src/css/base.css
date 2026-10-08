@@ -1,0 +1,150 @@
+/* ==========================================================================
+   base.css — design tokens, minimal reset, typography helpers
+   ========================================================================== */
+
+:root {
+    /* Colour */
+    --bg: #050505;
+    --text: #f3f3f3;
+    --accent: #ffffff;
+
+    /* Typography (web fonts are loaded from index.html; stacks keep a sane fallback) */
+    --font-body: 'Inter', sans-serif;
+    --font-display: 'Syne', sans-serif;
+    --font-number: 'Space Grotesk', sans-serif;
+    --font-devanagari: 'Matangi', sans-serif;
+    --font-brand: 'Clash Display', sans-serif;
+
+    /* Motion */
+    --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+    --ease-snap: cubic-bezier(0.25, 1, 0.5, 1);
+    --ease-standard: cubic-bezier(0.4, 0, 0.2, 1);
+    --ease-out: cubic-bezier(0, 0, 0.2, 1);
+
+    /* Layout */
+    --layout-pad: 1.5rem;
+    --action-size: 110px;
+    --action-bottom: max(2rem, 8vh);
+}
+
+@media (min-width: 768px) {
+    :root {
+        --layout-pad: 2rem;
+        --action-size: 130px;
+        --action-bottom: max(2.5rem, 10vh);
+    }
+}
+
+/* ---- Reset (the parts of a modern reset this app actually relies on) ---- */
+
+*,
+::before,
+::after {
+    box-sizing: border-box;
+    border-width: 0;
+    border-style: solid;
+}
+
+html {
+    line-height: 1.5;
+    -webkit-text-size-adjust: 100%;
+    -webkit-tap-highlight-color: transparent;
+}
+
+body {
+    margin: 0;
+    padding: 0;
+    line-height: inherit;
+    background-color: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    overflow: hidden;
+    user-select: none;
+    -webkit-user-select: none;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    touch-action: none;
+}
+
+h1, h2, h3, p {
+    margin: 0;
+    font-size: inherit;
+    font-weight: inherit;
+}
+
+button {
+    font-family: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    color: inherit;
+    margin: 0;
+    padding: 0;
+    text-transform: none;
+    background-color: transparent;
+    background-image: none;
+    -webkit-appearance: button;
+    appearance: button;
+    cursor: pointer;
+}
+
+svg,
+canvas {
+    display: block;
+    vertical-align: middle;
+}
+
+[hidden] {
+    display: none !important;
+}
+
+/* ---- Typography helpers ---- */
+
+.font-display { font-family: var(--font-display); }
+.font-brand   { font-family: var(--font-brand); }
+
+.font-number {
+    font-family: var(--font-number);
+    font-variant-numeric: tabular-nums;
+}
+
+.font-devanagari {
+    font-family: var(--font-devanagari);
+    font-optical-sizing: auto;
+}
+
+/* Visually hidden, still announced by screen readers */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    margin: -1px;
+    padding: 0;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+}
+
+/* Elements that should react to pointer input (the UI layer itself is click-through).
+   Inert until the intro finishes so nothing can be triggered behind the loader. */
+.interactive {
+    pointer-events: auto;
+    cursor: none;
+}
+
+html:not(.is-ready) .interactive {
+    pointer-events: none;
+}
+
+@media (pointer: coarse) {
+    .interactive { cursor: auto !important; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *, ::before, ::after {
+        animation-duration: 0.01ms !important;
+        animation-delay: 0ms !important;
+        transition-duration: 0.01ms !important;
+    }
+}

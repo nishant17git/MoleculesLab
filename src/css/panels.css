@@ -1,0 +1,138 @@
+/* ==========================================================================
+   panels.css — glass info panels (coin statistics, yes/no verse)
+   ========================================================================== */
+
+.glass-panel {
+    background: rgba(255, 255, 255, 0.02);
+    -webkit-backdrop-filter: blur(20px);
+    backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    border-radius: 24px;
+    box-shadow: 0 30px 60px rgba(0, 0, 0, 0.4);
+}
+
+.info-panel {
+    position: absolute;
+    top: 6rem;
+    left: 1.5rem;
+    right: 1.5rem;
+    padding: 1.25rem;
+    transition: opacity 0.5s ease;
+}
+
+@media (min-width: 768px) {
+    .info-panel {
+        top: 7.5rem;
+        left: 2.5rem;
+        right: auto;
+        bottom: auto;
+        width: 320px;
+        padding: 1.5rem;
+    }
+}
+
+/* Only the panel for the active mode is visible / clickable */
+.info-panel.is-inactive {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Low-end devices: skip the (expensive) live backdrop blur over the WebGL canvas */
+html[data-tier='low'] .glass-panel,
+html[data-tier='low'] .mode-nav {
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+}
+
+html[data-tier='low'] .glass-panel { background: rgba(255, 255, 255, 0.05); }
+html[data-tier='low'] .mode-nav    { background-color: rgb(255 255 255 / 0.09); }
+
+/* ---- Coin statistics ---- */
+
+.stats__reset {
+    position: absolute;
+    top: 0.75rem;
+    right: 1rem;
+    font-size: 8px;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.3);
+    transition: color 300ms var(--ease-standard);
+}
+
+.stats__reset:hover { color: rgb(255 255 255 / 0.8); }
+
+.stats__row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 0.5rem;
+    padding: 0 1rem;
+}
+
+.stats__cell {
+    width: 100%;
+    text-align: center;
+}
+
+.stats__divider {
+    width: 1px;
+    height: 3rem;
+    margin: 0 1.5rem;
+    background-color: rgb(255 255 255 / 0.1);
+}
+
+/* Odometer: the old value rolls out while the new one rolls in */
+.stats__number {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.1em;
+    overflow: hidden;
+    perspective: 400px;
+    font-size: 2.25rem;
+    font-weight: 700;
+    line-height: 1;
+}
+
+.stats__value {
+    position: absolute;
+    width: 100%;
+    color: #ffffff;
+    text-align: center;
+}
+
+.stats__label {
+    margin-top: 0.5rem;
+    font-size: 9px;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: rgb(255 255 255 / 0.4);
+}
+
+@media (min-width: 768px) {
+    .stats__reset  { top: 1rem; right: 1.25rem; font-size: 9px; }
+    .stats__number { font-size: 3rem; }
+}
+
+/* ---- Yes / No verse ---- */
+
+.verse__title {
+    margin-bottom: 0.75rem;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    color: rgb(255 255 255 / 0.8);
+}
+
+.verse__text {
+    font-size: 13px;
+    font-weight: 500;
+    line-height: 1.625;
+    color: #ffffff;
+}
+
+@media (min-width: 768px) {
+    .verse__title { font-size: 14px; }
+}

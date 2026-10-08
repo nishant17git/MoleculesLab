@@ -1,0 +1,146 @@
+/* ==========================================================================
+   loader.css — intro / loading screen
+
+   Performance notes
+   - The corner labels reveal with a CSS animation (transform + opacity only), so
+     they paint on the very first frame and keep animating on the compositor even
+     when the main thread is busy building the 3D scene.
+   - The big counter is hidden until fonts are ready (no flash of fallback text).
+   ========================================================================== */
+
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 2rem;
+    background: var(--bg);
+    pointer-events: none;
+    clip-path: inset(0 0 0 0);
+    will-change: clip-path;
+}
+
+@media (min-width: 768px) {
+    .loader { padding: 3rem; }
+}
+
+/* ---- Corner labels ---- */
+
+.loader__row {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.loader__row--top    { align-items: flex-start; }
+.loader__row--bottom { align-items: flex-end; }
+
+.loader__mask {
+    display: inline-flex;
+    overflow: hidden;
+}
+
+.loader__label {
+    font-family: var(--font-brand);
+    font-weight: 600;
+    font-size: 9px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.4);
+    /* Base state is the *final* state; the keyframe only defines where it starts.
+       This keeps the element free for JS (GSAP) to animate once the intro is over. */
+    animation: loader-reveal 0.7s var(--ease-out-expo) backwards;
+    animation-delay: calc(var(--i, 0) * 80ms + 60ms);
+}
+
+.loader__label--status { color: #ffffff; }
+
+@media (min-width: 768px) {
+    .loader__label { font-size: 11px; }
+}
+
+@keyframes loader-reveal {
+    from { opacity: 0; transform: translateY(100%); }
+}
+
+/* ---- Big percentage counter ---- */
+
+.loader__counter {
+    position: absolute;
+    inset: 0;
+    display: grid;
+    place-items: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.35s var(--ease-out);
+}
+
+.loader.is-counting .loader__counter { opacity: 1; }
+
+/* Outline and solid layers are stacked in the same grid cell */
+.loader__digits {
+    grid-area: 1 / 1;
+    display: flex;
+    font-family: var(--font-brand);
+    font-size: clamp(8rem, 28vw, 25rem);
+    font-weight: 600;
+    line-height: 0.75;
+    letter-spacing: 0.02em;
+}
+
+.loader__digits--stroke {
+    -webkit-text-stroke: 1px rgba(255, 255, 255, 0.2);
+    color: transparent;
+}
+
+.loader__digits--solid {
+    color: #ffffff;
+    clip-path: inset(100% 0 0 0);
+}
+
+/* Fixed-width cells (measured from the loaded font at runtime) stop the number
+   from jittering sideways as digits change. */
+.loader__digit {
+    display: inline-block;
+    width: var(--digit-width, 0.62em);
+    text-align: center;
+}
+
+/* ---- Failure state (shown instead of the counter) ---- */
+
+.loader__error {
+    position: absolute;
+    inset: 0;
+    z-index: 20;
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.25rem;
+    padding: 2rem;
+    text-align: center;
+    pointer-events: auto;
+}
+
+.loader.is-failed .loader__error   { display: flex; }
+.loader.is-failed .loader__counter { opacity: 0; }
+
+.loader__error-title {
+    font-family: var(--font-brand);
+    font-weight: 600;
+    font-size: 11px;
+    letter-spacing: 0.25em;
+    text-transform: uppercase;
+    color: #ffffff;
+}
+
+.loader__error-message {
+    max-width: 22rem;
+    font-size: 13px;
+    line-height: 1.6;
+    color: rgba(255, 255, 255, 0.6);
+}

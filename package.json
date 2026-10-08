@@ -1,0 +1,15 @@
+{
+  "name": "molecules-lab",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Molecules Lab — a coin toss and yes/no decision app that works fully offline (PWA).",
+  "scripts": {
+    "start": "node scripts/serve.mjs",
+    "build": "node scripts/build.mjs",
+    "check": "node scripts/build.mjs --check"
+  },
+  "engines": {
+    "node": ">=18"
+  }
+}
